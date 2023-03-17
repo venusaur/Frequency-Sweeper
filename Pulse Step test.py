@@ -16,7 +16,7 @@ from tkinter.filedialog import asksaveasfile
                 #User inputs#
 #--------------------------------------#
 startfreq = 5   #Starting Frequency
-endfreq = 2         #Ending Frequency
+endfreq = 3000         #Ending Frequency
 freqstep = 1    #Steps in frequency between scans
 
 averages = 5    #Number of averages at each frequency step - SOFTWARE WILL USE THIS VALUE TO CALCULATE TIME REQUIRED AT LOWEST FREQUENCY USE THE TRIGGER TO AVERAGE THIS SAME AMOUNT OF TIME AT EACH STEP
