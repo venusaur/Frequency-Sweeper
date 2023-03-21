@@ -12,21 +12,57 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter.filedialog import asksaveasfile
 
+
+#--------------------------------------#
+        #Graphical Interface#
+#--------------------------------------#
+# Create an instance of tkinter frame or window
+window = tk.Tk()
+
+# Set the size of the tkinter window
+window.geometry("700x350")
+
+tk.Label(window, text="Starting Frequency: ", font=('Calibri 10')).pack()
+startFreq = tk.Entry(window, width=35)
+startFreq.pack()
+
+tk.Label(window, text="Ending Frequency: ", font=('Calibri 10')).pack()
+endFreq = tk.Entry(window, width=35)
+endFreq.pack()
+
+tk.Label(window, text="Frequency Step: ", font=('Calibri 10')).pack()
+freqStep = tk.Entry(window, width=35)
+freqStep.pack()
+
+tk.Label(window, text="Frequency Step: ", font=('Calibri 10')).pack()
+freqStep = tk.Entry(window, width=35)
+freqStep.pack()
+
+tk.Label(window, text="Averages: ", font=('Calibri 10')).pack()
+average = tk.Entry(window, width=35)
+average.pack()
+
+tk.Label(window, text="Number of Points: ", font=('Calibri 10')).pack()
+numP = tk.Entry(window, width=35)
+numP.pack()
+
+
 #--------------------------------------#
                 #User inputs#
 #--------------------------------------#
-startfreq = 5   #Starting Frequency
-endfreq = 2         #Ending Frequency
-freqstep = 1    #Steps in frequency between scans
+startfreq = int(startFreq.get())          # Starting Frequency
+endfreq = int(endFreq.get())              # Ending Frequency
+freqstep = int(freqStep.get())            # Steps in frequency between scans
 
-averages = 5    #Number of averages at each frequency step - SOFTWARE WILL USE THIS VALUE TO CALCULATE TIME REQUIRED AT LOWEST FREQUENCY USE THE TRIGGER TO AVERAGE THIS SAME AMOUNT OF TIME AT EACH STEP
-numpts = 100    #Number of data points to take at each frequency setp
+averages = int(average.get())             # Number of averages at each frequency step - SOFTWARE WILL USE THIS VALUE TO CALCULATE TIME REQUIRED AT LOWEST FREQUENCY USE THE TRIGGER TO AVERAGE THIS SAME AMOUNT OF TIME AT EACH STEP
+numpts = int(numP.get())                  # Number of data points to take at each frequency setp
+
 
 #--------------------------------------#
         #Background Calculations#
 #--------------------------------------#
-endfreq = endfreq + freqstep   #Corrects for numpy arange's inability to iterate to a number (otherwise it would stop 1 freqstep below the end freq)
-samprate = (numpts*startfreq)*averages   #Calculates the sampling rate based on averges, startfreq, and numpts
+endfreq = endfreq + freqstep            #Corrects for numpy arange's inability to iterate to a number (otherwise it would stop 1 freqstep below the end freq)
+samprate = (numpts*startfreq)*averages  #Calculates the sampling rate based on averges, startfreq, and numpts
 numptstot = numpts*averages             #Calculates how many points to take after trigger
 
 data = np.empty([numptstot,(endfreq-startfreq)])   
@@ -40,8 +76,9 @@ data = pd.DataFrame(data, columns = names)  #Initializes DataFrame for collectin
 #--------------------------------------#
         #DAQmx Initialization#
 #--------------------------------------#
+
 CO1 = nidaqmx.Task()    #Initializes Counter Output
-CO1.co_channels.add_co_pulse_chan_time("Dev1/ctr0")
+CO1.co_channels.add_co_pulse_chan_time("Dev1/ctr0") 
 CO1.timing.cfg_implicit_timing(sample_mode=AcquisitionType.CONTINUOUS)
 cw = CounterWriter(CO1.out_stream, True)
 
@@ -57,7 +94,7 @@ AI1.triggers.start_trigger.cfg_dig_edge_start_trig("PFI12") #Sets triggering to 
 #--------------------------------------#
 starttime = datetime.datetime.now()
 print(starttime)
-for x in np.arange (startfreq, endfreq, freqstep):  #Iterates over each frequency to collect, collecting numptstot at each step after triggering
+for x in np.arange (startfreq, endfreq, freqstep):  # Iterates over each frequency to collect, collecting numptstot at each step after triggering
     cw.write_one_sample_pulse_frequency(frequency=x, duty_cycle=0.5)
     print(x)
     data['Frequency %d' %(x)] = AI1.read(number_of_samples_per_channel = numptstot)
@@ -79,8 +116,8 @@ AI1.close()
         #Data Processing#
 #--------------------------------------#
 
-avg = []        #initializes empty array to store average values in.
-for column in data:     #iterates over each column in the data dataframe to find average
+avg = []                # initializes empty array to store average values in.
+for column in data:     # iterates over each column in the data dataframe to find average
     #print(data[column].values)
     avg.append(data[column].mean())
     #print(avg)
@@ -111,7 +148,7 @@ freq = np.fft.fftfreq(t.shape[-1])
 #--------------------------------------#
 Fourier = pd.DataFrame()        #Creates Dataframe for storing all collected data and assigns each column to the respective portions of the FFT collected.
 Fourier['Signal Freq']=output['Frequency']
-Fourier['Signal']=output['Average Signal']
+Fourier['Signal']=output['Average Signal'] 
 Fourier['Freq']=freq
 Fourier['fft']=fft.real
 Fourier['fft_imag']=fft.imag
