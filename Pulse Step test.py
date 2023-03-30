@@ -50,7 +50,7 @@ numP.pack()
 #--------------------------------------#
                 #User inputs#
 #--------------------------------------#
-startfreq = int(startFreq.get())          # Starting Frequency
+startfreq = int(float(startFreq.get()))          # Starting Frequency
 endfreq = int(endFreq.get())              # Ending Frequency
 freqstep = int(freqStep.get())            # Steps in frequency between scans
 
@@ -65,7 +65,7 @@ endfreq = endfreq + freqstep            #Corrects for numpy arange's inability t
 samprate = (numpts*startfreq)*averages  #Calculates the sampling rate based on averges, startfreq, and numpts
 numptstot = numpts*averages             #Calculates how many points to take after trigger
 
-data = np.empty([numptstot,(endfreq-startfreq)])   
+data = np.empty([numptstot,(endfreq-startfreq)])
 names = ['Frequency %d' % (startfreq)]
 
 for x in np.arange (1, ((endfreq-startfreq)), freqstep):
@@ -78,7 +78,7 @@ data = pd.DataFrame(data, columns = names)  #Initializes DataFrame for collectin
 #--------------------------------------#
 
 CO1 = nidaqmx.Task()    #Initializes Counter Output
-CO1.co_channels.add_co_pulse_chan_time("Dev1/ctr0") 
+CO1.co_channels.add_co_pulse_chan_time("Dev1/ctr0")
 CO1.timing.cfg_implicit_timing(sample_mode=AcquisitionType.CONTINUOUS)
 cw = CounterWriter(CO1.out_stream, True)
 
@@ -148,7 +148,7 @@ freq = np.fft.fftfreq(t.shape[-1])
 #--------------------------------------#
 Fourier = pd.DataFrame()        #Creates Dataframe for storing all collected data and assigns each column to the respective portions of the FFT collected.
 Fourier['Signal Freq']=output['Frequency']
-Fourier['Signal']=output['Average Signal'] 
+Fourier['Signal']=output['Average Signal']
 Fourier['Freq']=freq
 Fourier['fft']=fft.real
 Fourier['fft_imag']=fft.imag
@@ -158,3 +158,5 @@ Fourier.to_csv((asksaveasfile(initialfile = 'Untitled.csv', defaultextension='.c
 
 #fig1 = plt.plot(freq, fft.real, freq, fft.imag)
 #plt.show()
+
+window.mainloop()
