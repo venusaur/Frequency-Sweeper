@@ -133,6 +133,12 @@ output['Average Signal'] = avg   #Adds average to output Dataframe
 #plt.show()  #Displays data
 
 
+
+
+
+# IDK if rest of this is necessary atm, will need to investigate functionality of top code then implement FT
+
+
 #--------------------------------------#
         #Fourier Transform#
 #--------------------------------------#
