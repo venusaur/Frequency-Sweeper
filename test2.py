@@ -9,68 +9,78 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
-import tkinter
-import customtkinter
+from tkinter import *
+from functions import *
+
 
 #--------------------------------------#
         #Graphical Interface#
 #--------------------------------------#
-# System settings
-customtkinter.set_appearance_mode("System")
-customtkinter.set_default_color_theme("blue")
-
-# Frame intialization
-frame = customtkinter.CTk()
-frame.geometry("750x300")
-frame.title("Pulse Step FTIMS")
+root = Tk()
+root.geometry('500x500')
+root.title("FTIMS Panel")
 
 
-# UI Elements
-startFreq = customtkinter.CTkLabel(frame, text="Starting Freq.")
-startFreq.grid(row=0, column=0, padx=10)
+# Labels for Variables
+startFreqLabel = Label(root, text="Starting Freq.")
+startFreqLabel.grid(row=0, column=0, padx=10)
 
-startFreq = customtkinter.CTkLabel(frame, text="Starting Freq.", justify="left")
-startFreq.grid(row=0, column=0, padx=10)
+endFreqLabel = Label(root, text="End Freq.", justify="left")
+endFreqLabel.grid(row=1, column=0, padx=10)
 
-endFreq = customtkinter.CTkLabel(frame, text="End Freq.", justify="left")
-endFreq.grid(row=1, column=0, padx=10)
+freqStepLabel = Label(root, text="Frequency Step", justify="left")
+freqStepLabel.grid(row=2, column=0, padx=10)
 
-freqStep = customtkinter.CTkLabel(frame, text="Frequency Step", justify="left")
-freqStep.grid(row=2, column=0, padx=10)
+setAvgLabel = Label(root, text="Averages", justify="left")
+setAvgLabel.grid(row=3, column=0, padx=10)
 
-setAvg = customtkinter.CTkLabel(frame, text="Averages", justify="left")
-setAvg.grid(row=3, column=0, padx=10)
-
-setPoints = customtkinter.CTkLabel(frame, text="Number of Points", justify="left")
-setPoints.grid(row=4, column=0, padx=10)
+setPointsLabel = Label(root, text="Number of Points", justify="left")
+setPointsLabel.grid(row=4, column=0, padx=10)
 
 
 
-# UI input
-startFreqInput = customtkinter.CTkEntry(frame, width=100, height=30)
+# UI Input
+startFreqInput = Entry(root, width=10)
 startFreqInput.grid(row=0, column=1, pady=10)
 
-endFreqInput = customtkinter.CTkEntry(frame, width=100, height=30)
+endFreqInput = Entry(root, width=10)
 endFreqInput.grid(row=1, column=1, pady=10)
 
-freqStepInput = customtkinter.CTkEntry(frame, width=100, height=30)
+freqStepInput = Entry(root, width=10)
 freqStepInput.grid(row=2, column=1, pady=10)
 
-setAvgInput = customtkinter.CTkEntry(frame, width=100, height=30)
+setAvgInput = Entry(root, width=10)
 setAvgInput.grid(row=3, column=1, pady=10)
 
-setPointsInput = customtkinter.CTkEntry(frame, width=100, height=30)
+setPointsInput = Entry(root, width=10)
 setPointsInput.grid(row=4, column=1, pady=10)
+
 
 
 #--------------------------------------#
                 #User inputs#
 #--------------------------------------#
 startfreq = int(startFreqInput.get())
+print(startfreq) # Debug statement
+
 endfreq = int(endFreqInput.get())
-freqstep = int(freqStepInput.get())
+print(endfreq) # Debug Statment
+
+freqstep = int (freqStepInput.get())
+print(freqstep) # Debug Statement
+
 averages = int(setAvgInput.get())
+print(averages) #Debug statment
+
 numpts = int(setPointsInput.get())
+print(numpts) #debug statment
+
+runButton = Button(root, text="RUN SCAN")
+runButton.grid(row=2, column=5, padx=50)
+
+print(startfreq)
+
+
 
 
 
@@ -78,16 +88,17 @@ numpts = int(setPointsInput.get())
         #Background Calculations#
 #--------------------------------------#
 endfreq += freqstep
-samprate = (numpts*startFreq)*averages # Might want to display this value later
-numptsTot = numpts*averages # Might want to display this value aswell
+samprate = (numpts*startfreq)*averages # Might want to display this value later
+numptTot = numpts*averages # Might want to display this value aswell
 
-data = np.empty([numptsTot,(endfreq-startfreq)])
+data = np.empty([numptTot,(endfreq-startfreq)])
 names = ['Frequency %d' % (startfreq)]
 
 for x in np.arange (1, ((endfreq-startfreq)), freqstep):
     names.append("Frequency %d" % (x+startfreq))         # Can I add a prgress bar for this in UI
 
 data = pd.DataFrame(data, columns = names)
+
 
 
 #--------------------------------------#
@@ -102,7 +113,7 @@ CO1.start()     #Starts Counter
 
 AI1 = nidaqmx.Task()    #Initializes Analog Input on Channel 0 (Differential measurement)
 AI1.ai_channels.add_ai_voltage_chan("Dev1/ai0") # Investigate this as well
-AI1.timing.cfg_samp_clk_timing(samprate, sample_mode=AcquisitionType.FINITE, samps_per_chan = numptsTot)    # Sets timing to collect total number of points requested
+AI1.timing.cfg_samp_clk_timing(samprate, sample_mode=AcquisitionType.FINITE, samps_per_chan = numptTot)    # Sets timing to collect total number of points requested
 AI1.triggers.start_trigger.cfg_dig_edge_start_trig("PFI12")
 
 
@@ -114,7 +125,7 @@ startTime = datetime.datetime.now() # Need to output start time
 for x in np.arange (startfreq, endfreq, freqstep):  # Iterates over each frequency to collect, collecting numptstot at each step after triggering
     cw.write_one_sample_pulse_frequency(frequency=x, duty_cycle=0.5)
     print(x)
-    data['Frequency %d' %(x)] = AI1.read(number_of_samples_per_channel = numptsTot)
+    data['Frequency %d' %(x)] = AI1.read(number_of_samples_per_channel = numptTot)
 
 endTime = datetime.datetime.now() # Need to output End Time
 
@@ -141,8 +152,5 @@ output = pd.DataFrame(np.arange(startfreq, endfreq, freqstep), columns = ['Frequ
 output['Average Signal'] = avg   # Output this value as well
 
 
-
-# main loop
-frame.mainloop()
-
+root.mainloop()
 
