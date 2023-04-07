@@ -1,3 +1,0 @@
-https://forum.pjrc.com/threads/66565-Teensy-3-6-to-Python-Serial-Communication-Optimization
-https://forum.pjrc.com/threads/66783-DIY-Scalar-Network-Analyser-with-or-without-external-ADC?p=275745#post275745
-https://github.com/paynterf/TeensySweepGen/blob/master/TeensySweepGen.ino
