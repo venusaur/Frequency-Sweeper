@@ -9,17 +9,16 @@ root = Tk()
 root.geometry('500x500')
 root.title("FTIMS Panel")
 
-
-# define states for arduono functions
-
-
-
 # Teensy Arduino Communication
-teensy = serial.Serial('com3', 9600)
-print("Reset Arduino")
-time.sleep(3)
-teensy.write(bytes('L', 'UTF-8'))
+teensy = serial.Serial("COM4", 9600)
+teensy.flushInput()
+ser.write((startFreq+';'+endFreq+';'+sweepTime+';'steps+';'\n').encode())
 
+data = ''
+
+
+# define states for arrduino functions
+def process(startFreq, endFreq, sweepTime, steps):
 
 
 teensy.open()
