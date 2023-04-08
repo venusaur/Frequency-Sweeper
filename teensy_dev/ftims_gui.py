@@ -12,7 +12,7 @@ root.title("FTIMS Panel")
 # Teensy Arduino Communication
 teensy = serial.Serial("COM4", 9600)
 teensy.flushInput()
-ser.write((startFreq+';'+endFreq+';'+sweepTime+';'steps+';'\n').encode())
+teensy.write((startFreq+';'+endFreq+';'+sweepTime+';'steps+';'\n').encode()) // tbh idk
 
 data = ''
 
