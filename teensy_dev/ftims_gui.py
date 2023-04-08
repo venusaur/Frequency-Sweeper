@@ -1,8 +1,12 @@
 # Need to be able to send commands to the arduino via a python UI
-
 from tkinter import *
-import serial.tools.list_ports
-import time
+import matplotlib.pyplot as plt
+import pandas as pd
+import time as time
+import numpy as np
+import re
+import csv
+import struct
 
 # Window Settings
 root = Tk()
@@ -21,5 +25,5 @@ data = ''
 def process(startFreq, endFreq, sweepTime, steps):
 
 
-teensy.open()
+#teensy.open()
 root.mainloop()
