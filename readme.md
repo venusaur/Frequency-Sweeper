@@ -1,17 +1,13 @@
 # Frequency Sweeper for Fourier Transform Ion Mobility Spectrometer
-
+Arduino code that sweeps through frequencies on a Teensy for an ion mobility spectrometer. Allows an FTIMS instrument to analyze a wider range of molecular species with high accuracy and precision. 
 ## Table of Contents
-- [Frequency Sweeper](#)
+- [Frequency Sweeper](#Frequency-Sweeper-for-Fourier-Transform-Ion-Mobility-Spectrometer)
 	- [Table of Contents](#table-of-contents)
-	- [What is this?](#what-is-this)
 	- [System Requirements](#system-requirements)  
 	- [Specifications](#specifications)
 		- [Pseudocode](#pseudocode)
-  	- [Development notes](#development-notes)
+  	- [To-Do List](#todo)
   	- [Acknowledgements](#acknowledgements)
-
-## What is this?
-The purpose of this project is to sweep through frequencies on an ion mobility spectrometer. By sweeping frequencies over a range of values, the FTIMS instrument can analyze a wide range of molecular species with high accuracy and precision. 
 
 ## System Requirements
 - Teensy 4.0
@@ -20,7 +16,7 @@ The purpose of this project is to sweep through frequencies on an ion mobility s
 
 [Add labeled image of Teensy board with pins used]
 
-## Specification
+## Specifications
 ### Pseudocode
 ```python
 for i in sweeps
