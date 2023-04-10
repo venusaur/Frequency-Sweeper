@@ -10,11 +10,12 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
   	- [Acknowledgements](#acknowledgements)
 
 ## System Requirements
-- Teensy 4.0
-- Arduino Library
+- Arduino Teensy Library
 - Install python requirements (Not finished)
-
-![Used Pins on Teensy](pins.png)
+- Teensy 4.0
+<p align="center">
+	<img width="40%" height="30%" src="https://github.com/venusaur/Pulsed-Step-FTIMS/blob/main/pins.png" alt="Teensy Pin Usage"/>
+</p>
 
 ## Specifications
 ### Pseudocode
