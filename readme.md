@@ -14,7 +14,7 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
 - Arduino Library
 - Install python requirements (Not finished)
 
-[Add labeled image of Teensy board with pins used]
+![Used Pins on Teensy](pins.png)
 
 ## Specifications
 ### Pseudocode
