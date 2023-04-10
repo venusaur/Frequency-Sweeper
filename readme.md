@@ -1,4 +1,4 @@
-# Frequency Sweeper for Fourier Transform Ion Mobility Spectometer
+# Frequency Sweeper for Fourier Transform Ion Mobility Spectrometer
 
 ## Table of Contents
 - [Frequency Sweeper](#)
