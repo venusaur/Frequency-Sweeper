@@ -22,7 +22,7 @@ The purpose of this project is to sweep through frequencies on an ion mobility s
 
 ## Specification
 ### Pseudocode
-```
+```python
 for i in sweeps
 	write high for output pin
 	pause
