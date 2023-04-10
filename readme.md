@@ -14,7 +14,7 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
 - Arduino Library
 - Install python requirements (Not finished)
 
-[Add labeled image of Teensy board with pins used]
+![Used Pins on Teensy](pins.png)
 
 ## Specifications
 ### Pseudocode
@@ -32,6 +32,7 @@ for i in sweeps
 ```
 
 ## TODO
+- Implement way to export data to CSV
 - GUI interface via python or C# that communicates via serial
 - Test arduino code with traditional IMS 
 - Attempt to implement hardware timing instead of software timed code
