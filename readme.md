@@ -38,6 +38,12 @@ for i in sweeps
 - Test arduino code with traditional IMS 
 - Attempt to implement hardware timing instead of software timed code
 
+- change the frequency, then read. 
+- Hardware timed 
+- investigate using two arduinos 
+
+
+
 
 ## Acknowledgements
 
