@@ -20,33 +20,22 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
 ## Specifications
 ### Pseudocode
 ```python
-for i in sweeps
-	write high for output pin
-	pause
-	write low for output pin
-	pause
-	
-	increment freq
-	calc new period 
-	
-	pause
+    while startfreq != stopFreq {
+        write startfreq
+        write duty cycle
+        increment frequency
+        delay 
+    }
+    reset counter
 ```
 
 ## TODO
 - Implement way to export data to CSV
 - GUI interface via python or C# that communicates via serial
-- Test arduino code with traditional IMS 
-- Attempt to implement hardware timing instead of software timed code
-
-- change the frequency, then read. 
-- Hardware timed 
-- investigate using two arduinos 
-
-
+- Interface 2 Arduinos for data collection and visualization
 
 
 ## Acknowledgements
-
 
 
 ## References
