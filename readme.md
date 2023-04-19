@@ -14,7 +14,7 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
 - Install python requirements (Not finished)
 - Teensy 4.0
 <p align="center">
-	<img width="40%" height="30%" src="https://github.com/venusaur/Pulsed-Step-FTIMS/blob/main/pins.png" alt="Teensy Pin Usage"/>
+	<img width="60%" height="40%" src="https://github.com/venusaur/Pulsed-Step-FTIMS/blob/main/pins.png" alt="Teensy Pin Usage"/>
 </p>
 
 ## Specifications
