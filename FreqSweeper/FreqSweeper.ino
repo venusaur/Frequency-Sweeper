@@ -1,6 +1,6 @@
 //PROJECT NAME: FTIMS - Frequency Sweeper for Ion Mobility Spectroscopy
 //CONTRIBUTORS:
-//    Saned Gharari - sgharari@whitworth.edu
+//    
 
 //PURPOSE: Sweeps through frequencies and stores output for a pcb ion mobility spectrometer 
 //References: 
