@@ -30,9 +30,8 @@ Arduino code that sweeps through frequencies on a Teensy for an ion mobility spe
 ```
 
 ## TODO
+- Implement simple data collection
 - Implement way to export data to CSV
-- GUI interface via python or C# that communicates via serial
-- Interface 2 Arduinos for data collection and visualization
 
 
 ## Acknowledgements
