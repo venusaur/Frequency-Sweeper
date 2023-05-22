@@ -1,12 +1,23 @@
 import machine
 import utime
 
-uart = machine.UART(0, baudrate=9600, bits=8, parity=None, stop=1)  # Initialize UART
+# Configure SPI
+spi = machine.SPI(0)
+spi.init(baudrate=1000000, polarity=0, phase=0)  # Adjust the baudrate, polarity, and phase as needed
 
+# Define CS (Chip Select) pin
+cs_pin = machine.Pin(5, machine.Pin.OUT)  # Use any available GPIO pin
+
+# Function to send and receive data
+def spi_transfer(data):
+    cs_pin.off()  # Activate the CS pin
+    result = spi.write_readinto(data)
+    cs_pin.on()  # Deactivate the CS pin
+    return result
+
+# Example usage
 while True:
-    command = b'1'  # Command to turn on the LED
-    uart.write(command)  # Send the command over UART
-    utime.sleep_ms(1000)  # Wait for 1 second
-    command = b'0'  # Command to turn off the LED
-    uart.write(command)  # Send the command over UART
-    utime.sleep_ms(1000)  # Wait for 1 second
+    data_to_send = bytearray([0x01, 0x02, 0x03])  # Example data to send
+    received_data = spi_transfer(data_to_send)
+    print("Received data:", received_data)
+    utime.sleep(1)
