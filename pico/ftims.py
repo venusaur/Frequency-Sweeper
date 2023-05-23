@@ -1,13 +1,18 @@
 import machine
-import utime
+import time
 
-# Configure UART
-uart = machine.UART(0, baudrate=9600, tx=machine.Pin(0), rx=machine.Pin(1))
+I2C_SLAVE_ADDRESS = 0x12  # I2C slave address of the Teensy
 
-# Send data to the Teensy
-uart.write("Hello Teensy!")
+i2c = machine.I2C(0)  # Create an I2C object using the default I2C peripheral (I2C0)
+i2c.init(machine.I2C.MASTER)  # Set the I2C mode to master
 
 while True:
-    # Additional code or operations
-    utime.sleep(1)
+    # Send a value of 1 to turn on the LED
+    i2c.writeto(I2C_SLAVE_ADDRESS, bytes([1]))
 
+    time.sleep(1)  # Wait for 1 second
+
+    # Send a value of 0 to turn off the LED
+    i2c.writeto(I2C_SLAVE_ADDRESS, bytes([0]))
+
+    time.sleep(1)  # Wait for 1 second
