@@ -1,11 +1,12 @@
-import machine
+from machine import Pin
 import utime
 
-uart = machine.UART(0, baudrate=9600, tx=1, rx=0)  # Initialize UART with the appropriate pins and baudrate
+input_pin = Pin(20, Pin.IN)
+output_pin_teensy = Pin(13, Pin.OUT)
 
 while True:
-    if machine.Pin(20).value() == 1:
-        uart.write(b'1')  # Send '1' to the Teensy
+    if input_pin.value() == 1:
+        output_pin_teensy.on()  # Turn on Teensy LED
     else:
-        uart.write(b'0')  # Send '0' to the Teensy
+        output_pin_teensy.off()  # Turn off Teensy LED
     utime.sleep(0.1)  # Delay for stability
