@@ -1,3 +1,7 @@
+# NEEDS TO BE UPDATED....
+
+
+
 # Frequency Sweeper for Fourier Transform Ion Mobility Spectrometer
 Arduino code that sweeps through frequencies on a Teensy for an ion mobility spectrometer (IMS). Allows an FTIMS instrument to analyze a wider range of molecular species with high accuracy and precision. 
 ## Table of Contents
